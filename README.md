@@ -103,36 +103,33 @@ ERC20-side-project/
 ## Usage
 
 - **Building the Project**
-
-To compile the smart contracts:
-```bash
-make build
-```
+  To compile the smart contracts:
+  ```bash
+  make build
+  ```
 
 - **Running Tests**
-
-Run all tests:
-```bash
-make test
-```
-
-Run unit tests:
-```bash
-make test-unit
-```
-
-Run integration tests:
-```bash
-make test-integration
-```
+  Run all tests:
+  ```bash
+  make test
+  ```
+  
+  Run unit tests:
+  ```bash
+  make test-unit
+  ```
+  
+  Run integration tests:
+  ```bash
+  make test-integration
+  ```
 
 - **Deploying Contracts To a Testnet**
-
-To deploy the contracts:
-```bash
-make deploy
-```
-Ensure your `.env` file is  configured with the correct RPC URL, key-store account and API key.
+  To deploy the contracts:
+  ```bash
+  make deploy
+  ```
+  Ensure your `.env` file is  configured with the correct RPC URL, key-store account and API key.
 
 ---
 
