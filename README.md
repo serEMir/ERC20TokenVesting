@@ -1,66 +1,205 @@
-## Foundry
+# ERC20 Token Vesting Project
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This project implements an ERC20 token (`EMirERC20`) and a token vesting contract (`MyTokenVesting`) to manage the gradual release of tokens to beneficiaries. It includes deployment scripts, unit tests, and integration tests to ensure robust functionality.
 
-Foundry consists of:
+---
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Table of Contents
 
-## Documentation
+- [ERC20 Token Vesting Project](#erc20-token-vesting-project)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Features](#features)
+  - [Project Structure](#project-structure)
+  - [Getting Started](#getting-started)
+  - [Usage](#usage)
+  - [Contracts](#contracts)
+  - [Testing](#testing)
+  - [Makefile Commands](#makefile-commands)
+  - [License](#license)
+  - [Acknowledgments](#acknowledgments)
+  - [Contributions](#contributions)
 
-https://book.getfoundry.sh/
+---
+
+## Overview
+
+This project provides a complete implementation of an ERC20 token and a token vesting system. The vesting contract allows token owners to allocate tokens to beneficiaries with customizable vesting schedules, including cliff periods and periodic releases.
+
+---
+
+## Features
+
+- **ERC20 Token (`EMirERC20`)**:
+  - Mintable and burnable token.
+  - Role-based access control using OpenZeppelin's `AccessControl`.
+
+- **Token Vesting Contract (`MyTokenVesting`)**:
+  - Supports cliff periods, vesting durations, and periodic token releases.
+  - Allows revocation of unvested tokens.
+  - Emits events for transparency.
+
+- **Deployment and Testing**:
+  - Deployment script using Foundry.
+  - Comprehensive unit and integration tests.
+
+---
+
+## Project Structure
+
+```plaintext
+ERC20-side-project/
+├── src/
+│   ├── [EMirERC20.sol](http://_vscodecontentref_/1)          # ERC20 token implementation
+│   ├── [MyTokenVesting.sol](http://_vscodecontentref_/2)     # Token vesting contract
+├── script/
+│   ├── [DeployMyTokenVesting.s.sol](http://_vscodecontentref_/3)  # Deployment script
+├── test/
+│   ├── unit/
+│   │   ├── [TestMyTokenVesting.t.sol](http://_vscodecontentref_/4)  # Unit tests for MyTokenVesting
+│   ├── Integration/
+│   │   ├── [InteractionsTest.t.sol](http://_vscodecontentref_/5)   # Integration tests
+├── .env                        # Environment variables
+├── Makefile                    # Build and automation commands
+├── [foundry.toml](http://_vscodecontentref_/6)                # Foundry configuration
+└── [README.md](http://_vscodecontentref_/7)                   # Project documentation
+```
+
+---
+
+## Getting Started
+
+**Prerequisites**
+
+- Foundry installed.
+- Node.js and npm (optional, for additional tools).
+- An Ethereum RPC URL (e.g., from [Alchemy](https://www.alchemy.com/) or [Infura](https://www.infura.io/)).
+
+**Installation**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/serEMir/ERC20TokenVesting.git
+   cd ERC20-side-project
+   ```
+2. Install dependencies:
+   ```bash
+   make install
+   ```
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add the following:
+   ```bash
+   TESTNET_RPC_URL=<your-testnet-rpc-url>
+   ETHERSCAN_API_KEY=<your-etherscan-api-key>
+   ACCOUNT=<your-key-store-account-name>
+   ```
+   To create an encrypted private-key store use this command:
+   ```bash
+   cast wallet import <your-account-name> --interactive
+   ```
+   follow the prompt and make sure to provide a password.
+
+---
 
 ## Usage
 
-### Build
+**Building the Project**
 
-```shell
-$ forge build
+To compile the smart contracts:
+```bash
+make build
 ```
 
-### Test
+**Running Tests**
 
-```shell
-$ forge test
+Run all tests:
+```bash
+make test
 ```
 
-### Format
-
-```shell
-$ forge fmt
+Run unit tests:
+```bash
+make test-unit
 ```
 
-### Gas Snapshots
-
-```shell
-$ forge snapshot
+Run integration tests:
+```bash
+make test-integration
 ```
 
-### Anvil
+**Deploying Contracts To a Testnet**
 
-```shell
-$ anvil
+To deploy the contracts:
+```bash
+make deploy
 ```
+Ensure your `.env` file is  configured with the correct RPC URL, key-store account and API key.
 
-### Deploy
+---
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+## Contracts
 
-### Cast
+**EMirERC20**
 
-```shell
-$ cast <subcommand>
-```
+An ERC20 token with the following features:
+- **Minting:** Only addresses with the `MINTER_ROLE` can mint tokens.
+- **Burning:** Any token holder can burn their tokens.
+- **Access Control:** Role-based permission using OpenZeppelin's `AccessControl`.
 
-### Help
+**MyTokenVesting**
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+A token vesting contract that allows token owners to allocate tokens to beneficiaries vesting schedules:
+- **Cliff Period:** Tokens are locked for a specified duration before vesting begins.
+- **Periodic Releases:** Tokens are released in intervals after the cliff period.
+- **Revocation:** Unvested tokens can be revoked and returned to the owner.
+
+---
+
+## Testing
+
+The project includes comprehensive unit and integration tests using Foundry's testing framework.
+
+**Unit Tests**
+- Located in `TestMyTokenVesting.t.sol`.
+- Covers all edge cases for the `MytokenVesting` contract.
+
+**Integration Tests**
+
+- Located in `InteractionsTest.t.sol`.
+- Tests interactions between `EMirERC20` and `MyTokenVesting`.
+
+---
+
+## Makefile Commands
+
+The `Makefile` provides convenient commands for common tasks:
+| Command               | Description                              |
+|-----------------------|------------------------------------------|
+| `make build`          | Build the project                       |
+| `make clean`          | Clean build artifacts                   |
+| `make test`           | Run all tests                           |
+| `make test-unit`      | Run unit tests                          |
+| `make test-integration` | Run integration tests                 |
+| `make deploy`         | Deploy contracts to a testnet           |
+| `make fmt`            | Format Solidity code                    |
+| `make analyze`        | Run static analysis                     |
+| `make snapshot`       | Run gas snapshot                        |
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Acknowledgments
+
+- [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) for secure and reusable smart contract components.
+- [Foundry](https://github.com/foundry-rs/foundry) for the development and testing framework.
+
+---
+
+## Contributions
+
+contributions to this project is highly appreciated.
