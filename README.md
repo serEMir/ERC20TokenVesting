@@ -59,7 +59,6 @@ ERC20-side-project/
 │   │   ├── TestMyTokenVesting.t.sol  # Unit tests for MyTokenVesting
 │   ├── Integration/
 │   │   ├── InteractionsTest.t.sol    # Integration tests
-├── .env                              # Environment variables
 ├── Makefile                          # Build and automation commands
 ├── foundry.toml                      # Foundry configuration
 └── README.md                         # Project documentation
@@ -103,14 +102,14 @@ ERC20-side-project/
 
 ## Usage
 
-**Building the Project**
+- **Building the Project**
 
 To compile the smart contracts:
 ```bash
 make build
 ```
 
-**Running Tests**
+- **Running Tests**
 
 Run all tests:
 ```bash
@@ -127,7 +126,7 @@ Run integration tests:
 make test-integration
 ```
 
-**Deploying Contracts To a Testnet**
+- **Deploying Contracts To a Testnet**
 
 To deploy the contracts:
 ```bash
