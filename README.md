@@ -30,16 +30,16 @@ This project provides a complete implementation of an ERC20 token and a token ve
 
 ## Features
 
-- **ERC20 Token (`EMirERC20`)**:
+- **ERC20 Token (`EMirERC20`):**
   - Mintable and burnable token.
   - Role-based access control using OpenZeppelin's `AccessControl`.
 
-- **Token Vesting Contract (`MyTokenVesting`)**:
+- **Token Vesting Contract (`MyTokenVesting`):**
   - Supports cliff periods, vesting durations, and periodic token releases.
   - Allows revocation of unvested tokens.
   - Emits events for transparency.
 
-- **Deployment and Testing**:
+- **Deployment and Testing:**
   - Deployment script using Foundry.
   - Comprehensive unit and integration tests.
 
@@ -50,19 +50,19 @@ This project provides a complete implementation of an ERC20 token and a token ve
 ```plaintext
 ERC20-side-project/
 ├── src/
-│   ├── [EMirERC20.sol](http://_vscodecontentref_/1)          # ERC20 token implementation
-│   ├── [MyTokenVesting.sol](http://_vscodecontentref_/2)     # Token vesting contract
+│   ├── EMirERC20.sol                 # ERC20 token implementation
+│   ├── MyTokenVesting.sol            # Token vesting contract
 ├── script/
-│   ├── [DeployMyTokenVesting.s.sol](http://_vscodecontentref_/3)  # Deployment script
+│   ├── DeployMyTokenVesting.s.sol    # Deployment script
 ├── test/
 │   ├── unit/
-│   │   ├── [TestMyTokenVesting.t.sol](http://_vscodecontentref_/4)  # Unit tests for MyTokenVesting
+│   │   ├── TestMyTokenVesting.t.sol  # Unit tests for MyTokenVesting
 │   ├── Integration/
-│   │   ├── [InteractionsTest.t.sol](http://_vscodecontentref_/5)   # Integration tests
-├── .env                        # Environment variables
-├── Makefile                    # Build and automation commands
-├── [foundry.toml](http://_vscodecontentref_/6)                # Foundry configuration
-└── [README.md](http://_vscodecontentref_/7)                   # Project documentation
+│   │   ├── InteractionsTest.t.sol    # Integration tests
+├── .env                              # Environment variables
+├── Makefile                          # Build and automation commands
+├── foundry.toml                      # Foundry configuration
+└── README.md                         # Project documentation
 ```
 
 ---
@@ -80,7 +80,7 @@ ERC20-side-project/
 1. Clone the repository:
    ```bash
    git clone https://github.com/serEMir/ERC20TokenVesting.git
-   cd ERC20-side-project
+   cd ERC20TokenVesting
    ```
 2. Install dependencies:
    ```bash
